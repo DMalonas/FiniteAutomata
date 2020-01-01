@@ -3,7 +3,7 @@ package finiteAutomata;
 import java.util.ArrayList;
 
 public class AutomataMap {
-	
+	//private fields
 	private ArrayList<Rule> rules;;
 	private String[] actions;
 	private int numOfStates;
