@@ -1,6 +1,8 @@
 package finiteAutomata;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AutomataMap {
 	//private fields
@@ -64,17 +66,24 @@ public class AutomataMap {
 
 	public int updateCurrentState(String actionSelected, String currentActions, int currentState) {
 		String action = actionSelected;
+		final int currentStateForLambda = currentState;
 		for (int i = 0; i < actions.length; i++) {
 			if (action.equals(actions[i])) {
-
-				for (Rule rule : rules) {
-					if ((rule.getCurrentState() - 48 == currentState)) {
-						if (rule.getTransition().equals(action)) {
-							currentState = rule.getFinalState() - 48;
-							break;
-						}
-					}
+				List<Rule> rule = rules.stream()
+					.filter(r -> (((r.getCurrentState() - 48) == currentStateForLambda) &&
+							r.getTransition().equals(action)))
+					.collect(Collectors.toCollection(() -> new ArrayList<Rule>()));
+				if (!rule.isEmpty()) {
+					currentState = rule.get(0).getFinalState() - 48;
 				}
+//				for (Rule rule : rules) {
+//					if ((rule.getCurrentState() - 48 == currentState)) {
+//						if (rule.getTransition().equals(action)) {
+//							currentState = rule.getFinalState() - 48;
+//							break;
+//						}
+//					}
+//				}
 			}
 		}
 		return currentState;

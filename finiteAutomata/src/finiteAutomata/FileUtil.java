@@ -13,7 +13,7 @@ public class FileUtil {
 	private int startingState = -1;
 
 	public ArrayList<Rule> createAllRules() {
-		File file = new File("C:\\Users\\Dimitrios\\eclipse-workspace\\JavaRevision\\fsm\\dfa.txt");
+		File file = new File("dfa.txt");
 	
 		ArrayList<Rule> rules = new ArrayList<Rule>();
 		try {
