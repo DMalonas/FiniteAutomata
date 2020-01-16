@@ -19,7 +19,7 @@ public class RunAutomato {
 		String[] actions = input.getActions();
 		int currentState = input.getStartingState();
 		AutomataMap aum= new AutomataMap(rules, numOfStates, actions, currentState);
-		while (true) {
+		while (true) {//s
 			String currentActions = aum.getPossibleActions(currentState, rules, numOfStates, actions);
         	System.out.print("State:   " + currentState + "\t|Action:  " + currentActions + "\n:: ");
         	currentState = aum.updateCurrentState(sc.next(), currentActions, currentState);
