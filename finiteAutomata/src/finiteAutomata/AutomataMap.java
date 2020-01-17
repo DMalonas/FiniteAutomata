@@ -3,6 +3,7 @@ package finiteAutomata;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Spliterator;
 import java.util.stream.Collectors;
 
 public class AutomataMap {
@@ -55,16 +56,49 @@ public class AutomataMap {
 
 	public String getPossibleActions(int currentState, ArrayList<Rule> rules, int numOfStates, String[] actions) {
 		String actionsForCurrentState = "";
-		for (int i = 0; i < numOfStates; i++) {
-			if (currentState == i) {
-		        for(Rule rule : rules) {
-		        	if (rule.getCurrentState() -48 == currentState) {
-		        		actionsForCurrentState += rule.getTransition() + " ";
-		        	}
-		        }
-			}
-		}
+//		for (int i = 0; i < numOfStates; i++) {
+//			if (currentState == i) {
+//		        for(Rule rule : rules) {
+//		        	if (rule.getCurrentState() -48 == currentState) {
+//		        		actionsForCurrentState += rule.getTransition() + " ";
+//		        	}
+//		        }
+//			}
+//		}
+		final int currentStateForLambda = currentState;
+		List<Rule> appropriateRules = rules.stream()
+				.filter(r -> ((r.getCurrentState() - 48) == currentStateForLambda))
+				.collect(Collectors.toCollection(() -> new ArrayList<Rule>()));
+		
+		List<String> actionsFromAppropriateRules = 
+				appropriateRules.stream()
+			    .map(Rule::getTransition)
+			    .collect(Collectors.toList());
+		
+		actionsForCurrentState = actionsFromAppropriateRules.spliterator()
+				.toString()
+				.join(" ", actionsFromAppropriateRules);
+		
 		return actionsForCurrentState;
+//		long count = allArtists.stream()
+//				.filter(artist -> {                           
+//					System.out.println(artist.getName());
+//					return artist.isFrom("London");                       
+//					})
+//				.count();
+//		String ac = appropriateRules.stream()
+//				.filter(rule -> {
+//						rule.getTransition();
+//				})
+//		List<SomeAttribute> attributes = original.stream().map(sc -> sc.getSomeAttribute()).collect(Collectors.toList());
+		
+//			              .flatMap(e->e.getFriends().stream())
+//			              .collect(Collectors.toList());
+
+//			    List<String> names = 
+//			    personList.stream()
+//			              .map(Person::getName)
+//			              .collect(Collectors.toList());
 	}
 
 	public int updateCurrentState(String actionSelected, String currentActions, int currentState) {
