@@ -1,19 +1,23 @@
 package finiteAutomata;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AutomataMap {
 	//private fields
 	private ArrayList<Rule> rules;;
-	private String[] actions;
+	//private String[] actions;
 	private int numOfStates;
 	private int startingState ;
+	List<String> actions;
+	
 
 	public AutomataMap(ArrayList<Rule> rules, int numOfStates, String[] actions, int startingState) {
 		this.rules = rules;
-		this.actions = actions;
+		this.actions = new ArrayList<String>();
+		this.actions = Arrays.asList(actions);
 		this.numOfStates = numOfStates;
 		this.startingState = startingState;
 	}
@@ -27,12 +31,11 @@ public class AutomataMap {
 	}
 
 	public String[] getActions() {
-		return actions;
+		String actionsStr = String.join(" ", actions);
+		String[] actionsReturn = actionsStr.split(" ");
+		return actionsReturn;
 	}
 
-	public void setActions(String[] actions) {
-		this.actions = actions;
-	}
 
 	public int getNumOfStates() {
 		return numOfStates;
@@ -67,11 +70,11 @@ public class AutomataMap {
 	public int updateCurrentState(String actionSelected, String currentActions, int currentState) {
 		String action = actionSelected;
 		final int currentStateForLambda = currentState;
-		for (int i = 0; i < actions.length; i++) {
-			if (action.equals(actions[i])) {
+//		for (int i = 0; i < actions.length; i++) {
+//			if (action.equals(actions[i])) {
 				List<Rule> rule = rules.stream()
 					.filter(r -> (((r.getCurrentState() - 48) == currentStateForLambda) &&
-							r.getTransition().equals(action)))
+							r.getTransition().equals(action) && actions.contains(action) ))
 					.collect(Collectors.toCollection(() -> new ArrayList<Rule>()));
 				if (!rule.isEmpty()) {
 					currentState = rule.get(0).getFinalState() - 48;
@@ -84,8 +87,8 @@ public class AutomataMap {
 //						}
 //					}
 //				}
-			}
-		}
+//			}
+//		}
 		return currentState;
 	}
 
