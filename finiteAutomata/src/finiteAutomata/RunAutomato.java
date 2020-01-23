@@ -6,12 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Stream;
 
 import finiteAutomata.Rule;
 
 public class RunAutomato {
   
 	public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 		FileUtil input = new FileUtil();
 		ArrayList<Rule> rules = input.createAllRules();

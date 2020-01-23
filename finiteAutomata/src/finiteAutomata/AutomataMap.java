@@ -54,6 +54,7 @@ public class AutomataMap {
 		this.startingState = startingState;
 	}
 
+	@SuppressWarnings("static-access")
 	public String getPossibleActions(int currentState, ArrayList<Rule> rules, int numOfStates, String[] actions) {
 		String actionsForCurrentState = "";
 //		for (int i = 0; i < numOfStates; i++) {
