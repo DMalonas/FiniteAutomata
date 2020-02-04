@@ -126,6 +126,7 @@ public class AutomataMap {
 		return actionsForCurrentState;
 	}
 
+	
 	public int updateCurrentState(String actionSelected, String currentActions, int currentState) {
 		String action = actionSelected;
 		final int currentStateForLambda = currentState;

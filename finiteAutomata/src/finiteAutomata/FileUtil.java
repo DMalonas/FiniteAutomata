@@ -21,31 +21,32 @@ public class FileUtil {
 	private int startingState = -1;
 	private String[] finalStates;
 	
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<String[]> getMoves() {
-		File file = new File("input.txt");
+		Path myPath = Paths.get("input.txt");
 		ArrayList<String[]> runs = new ArrayList<String[]>();
+		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String st; 
-			while ((st = br.readLine()) != null) {
-				runs.add(st.split(" "));
+			Stream<String>lines = Files.lines(myPath);
+			Spliterator<String> result = lines.collect(Collectors.toList()).spliterator();
+			int current = 0;
+			while (result.tryAdvance(line -> runs.add(line.split(" ")))) {
+				current++;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return runs;
 	}
 
-	public ArrayList<Rule> createAllRules() {
-		File file = new File("dfa.txt");
-		
+	public ArrayList<Rule> createAllRules() {		
 		ArrayList<Rule> rules = new ArrayList<Rule>();
-
-		//java 8
 		Path myPath = Paths.get("dfa.txt");
         try {
-        	 //Get rules with Java 8
         	 Stream<String>lines = Files.lines(myPath).skip(3);
         	 Spliterator<String> result = lines.collect(Collectors.toList()).spliterator();
         	 int current = 0;
@@ -57,7 +58,6 @@ public class FileUtil {
 			 finalStates = Files.lines(myPath).skip(3).map(line -> line.split(" ")).findFirst().get();
 			 startingState = Files.lines(myPath).skip(2).map(character -> character.charAt(0) - 48).findFirst().get();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		return rules;

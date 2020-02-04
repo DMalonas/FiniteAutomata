@@ -18,10 +18,7 @@ public class RunAutomato {
 		FileUtil input = new FileUtil();
 		ArrayList<Rule> rules = input.createAllRules();
 		ArrayList<String[]> runs = input.getMoves();
-//		System.out.println(runs.toString());
-//		for (String[] e : runs) {
-//			System.out.println(Arrays.toString(e));
-//			}
+
 		int numOfStates = input.getNumOfStates();
 		String[] actions = input.getActions();
 		String[] finalStates = input.getFinalStates();
